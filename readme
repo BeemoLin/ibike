@@ -1,0 +1,3 @@
+apt-get install xvfb firefox
+
+xvfb-run ruby ibike.rb
