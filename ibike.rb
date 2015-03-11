@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+## encoding: utf-8
 require 'nokogiri'
 require 'open-uri'
 require 'watir-webdriver'
@@ -37,7 +39,10 @@ contents.each do |content|
 	bikeArray.push(tempHash)
 
 end
-File.open("ibike.json","w") do |f|
+
+filePath = '/home/beemolin/backup/ibike/ibike.json'
+
+File.open("#{filePath}","w") do |f|
 		f.write("#{bikeArray.to_json}")
 		sleep 0.1
 end
