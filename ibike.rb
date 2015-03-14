@@ -56,6 +56,7 @@ bikeArray = []
 contents.each do |content|
 	#system("wget -P #{name} #{img}")
 	xml_doc = Nokogiri.XML("#{content}", nil, 'UTF-8')
+<<<<<<< HEAD
 	
 	sarea = "#{xml_doc.xpath("//td[1]")[0].text}"
 	sna = "#{xml_doc.xpath("//td[2]")[0].text}"
@@ -70,7 +71,6 @@ contents.each do |content|
 	puts "北緯:#{posStation["lat"]} \n"
 	puts "東經:#{posStation["lng"]} \n"
 	puts "------------------#{DateTime.now.strftime('%Y/%m/%d %I:%M%p')}------------------------- \n"
-	
 	
 	tempHash = {
 		"sarea" => "#{sarea}",
