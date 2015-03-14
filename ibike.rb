@@ -56,7 +56,6 @@ bikeArray = []
 contents.each do |content|
 	#system("wget -P #{name} #{img}")
 	xml_doc = Nokogiri.XML("#{content}", nil, 'UTF-8')
-<<<<<<< HEAD
 	
 	sarea = "#{xml_doc.xpath("//td[1]")[0].text}"
 	sna = "#{xml_doc.xpath("//td[2]")[0].text}"
