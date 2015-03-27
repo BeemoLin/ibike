@@ -1,5 +1,10 @@
+// 相依套件
 apt-get install xvfb firefox
 
+// 使用方法
+./runibike.sh
+
+// crontab設定
 sudo通过NOPASSWD无需输入密码的方法
 
 * * * * * /home/beemolin/backup/ibike/runibike.sh > /home/beemolin/output 2>&1
