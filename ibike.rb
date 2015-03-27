@@ -15,7 +15,7 @@ doc = Nokogiri::HTML("#{html}", nil, 'UTF-8')
 ibikeLocation = {
 	"北區行政大樓" => {"lat" => "24.165899", "lng" => "120.682366"},
 	"博館育德路口" => {"lat" => "24.1574614", "lng" => "120.6691935"},
-	"國立自然科學博物館" => {"lat" => "24.157246", "lng" => "120.666135"},
+	"國立自然科學博物館" => {"lat" => "24.156250", "lng" => "120.665875"},
 	"太原北中清路口" => {"lat" => "24.165132", "lng" => "120.673279"},
 	"學士育德路口" => {"lat" => "24.157811", "lng" => "120.681172"},
 	"臺中公園" => {"lat" => "24.142539", "lng" => "120.684291"},
@@ -43,7 +43,8 @@ ibikeLocation = {
 	"福星公園" => {"lat" => "24.172492", "lng" => "120.648127"},
 	"秋紅谷" => {"lat" => "24.168062", "lng" => "120.638990"},
 	"逢甲大學" => {"lat" => "24.178721", "lng" => "120.645043"},
-	"重慶公園" => {"lat" => "24.165904", "lng" => "120.655539"}
+	"重慶公園" => {"lat" => "24.165904", "lng" => "120.655539"},
+	"忠誠公園" => {"lat" => "24.161100", "lng" => "120.662740"}
 }
 
 #指定工作目錄
@@ -52,7 +53,7 @@ puts "chdir #{dir_path}"
 Dir.chdir(dir_path)
 
 contents = doc.xpath("//div[@id='content_page']//div[@id='stationList']//table//tbody//tr")
-bikeArray = []
+bikeArray = Array.new
 contents.each do |content|
 	#system("wget -P #{name} #{img}")
 	xml_doc = Nokogiri.XML("#{content}", nil, 'UTF-8')
@@ -61,7 +62,12 @@ contents.each do |content|
 	sna = "#{xml_doc.xpath("//td[2]")[0].text}"
 	sbi = "#{xml_doc.xpath("//td[3]//p")[0].text}"
 	bemp = "#{xml_doc.xpath("//td[3]//p")[1].text}"
-	posStation = ibikeLocation["#{sna}"]	
+
+	if ibikeLocation["#{sna}"] != nil 
+		posStation = ibikeLocation["#{sna}"]	
+	else 
+		posStation = {"lat" => "24.161100", "lng" => "120.662740"}
+	end
 
 	puts "區域:#{sarea} \n"
 	puts "站名:#{sna} \n"
