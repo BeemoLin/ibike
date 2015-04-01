@@ -1,12 +1,12 @@
-相依套件 console line 執行瀏覽器
+//相依套件 console line 執行瀏覽器
 `apt-get install xvfb firefox`
 
-crontab定時抓取最新資料
-sudo通过NOPASSWD无需输入密码的方法
+//crontab定時抓取最新資料
+//sudo通过NOPASSWD无需输入密码的方法
 `* * * * * /home/beemolin/backup/ibike/runibike.sh > /home/beemolin/output 2>&1`
 
-檔案操作
+//檔案操作
 `sudo cp ibike.json /var/lib/docker/aufs/mnt/544f95c2094cc2b2c320bb667a0514ee31eee569c0c195ea9c20ccd88f1375cf/`
 
-docker 檔案操作
+//docker 檔案操作
 `docker exec -it 544f95c2094c cp /ibike.json /var/www/html/ibike.json`
