@@ -10,3 +10,7 @@
 
 //docker 檔案操作
 `docker exec -it 544f95c2094c cp /ibike.json /var/www/html/ibike.json`
+
+ps. docker exited(1)
+docker start container_id && docker exec -it container_id rm xxx.pid
+apache2 or rails can use
