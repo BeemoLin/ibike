@@ -14,3 +14,7 @@
 ps. docker exited(1)
 docker start container_id && docker exec -it container_id rm xxx.pid
 apache2 or rails can use
+
+docker start ea5d5559ecb3 && docker exec ea5d5559ecb3 rm /usr/src/app/tmp/pids/server.pid
+ea5d5559ecb3
+docker start a8ae26bcdce4 && docker exec a8ae26bcdce4 rm /var/run/apache2/apache2.pid
