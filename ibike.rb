@@ -4,7 +4,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'watir-webdriver'
 require 'json'
-
+=begin
 ibikeLocation = {
 	"北區行政大樓" => {"lat" => "24.165899", "lng" => "120.682366"},
 	"博館育德路口" => {"lat" => "24.1574614", "lng" => "120.6691935"},
@@ -130,7 +130,7 @@ ibikeLocation = {
 	"鹿港頂厝公園" => {"lat" => "24.055011", "lng" => "120.444372"},
 	"鹿港高中" => {"lat" => "24.060366", "lng" => "120.427076"}
 }
-
+=end
 #指定工作目錄
 dir_path = "."
 puts "chdir #{dir_path}"
@@ -147,24 +147,30 @@ browser.close
 i_doc = Nokogiri::HTML("#{i_html}", nil, 'UTF-8')
 c_doc = Nokogiri::HTML("#{c_html}", nil, 'UTF-8')
 
-contents = i_doc.xpath("//div[@id='content_page']//div[@id='stationList']//table//tbody//tr")
-contents += c_doc.xpath("//div[@id='content_page']//div[@id='stationList']//table//tbody//tr")
+contents = i_doc.xpath("//div[@class='right']//tbody[@id='setarealist']//tr")
+contents += c_doc.xpath("//div[@class='right']//tbody[@id='setarealist']//tr")
+#contents = i_doc.xpath("//div[@id='content_page']//div[@id='stationList']//table//tbody//tr")
+#contents += c_doc.xpath("//div[@id='content_page']//div[@id='stationList']//table//tbody//tr")
 bikeArray = Array.new
 contents.each do |content|
 	#system("wget -P #{name} #{img}")
 	xml_doc = Nokogiri.XML("#{content}", nil, 'UTF-8')
 	
 	sarea = "#{xml_doc.xpath("//td[1]")[0].text}"
-	sna = "#{xml_doc.xpath("//td[2]")[0].text}"
-	sbi = "#{xml_doc.xpath("//td[3]//p")[0].text}"
-	bemp = "#{xml_doc.xpath("//td[3]//p")[1].text}"
+	sna = "#{xml_doc.xpath("//td[2]//a")[0].text}"
+	sbi = "#{xml_doc.xpath("//td[3]//b")[0].text}"
+	bemp = "#{xml_doc.xpath("//td[3]//b")[1].text}"
+	position = "#{xml_doc.xpath("//td[2]//a/@href")[0]}"
 
+	posStation = {"lat" => "#{position.scan(/\d*\.\d*/)[0]}", "lng" => "#{position.scan(/\d*\.\d*/)[1]}"}
+=begin
 	if ibikeLocation["#{sna}"] != nil 
-		posStation = ibikeLocation["#{sna}"]	
+		#posStation = ibikeLocation["#{sna}"]
+		posStation = {"lat" => "#{position.scan(/\d*\.\d*/)[0]}", "lng" => "#{position.scan(/\d*\.\d*/)[1]}"}
 	else 
-		posStation = {"lat" => "24.154802", "lng" => "120.663410"}
+		posStation = {"lat" => "#{position.scan(/\d*\.\d*/)[0]}", "lng" => "#{position.scan(/\d*\.\d*/)[1]}"}
 	end
-
+=end
 	puts "區域:#{sarea} \n"
 	puts "站名:#{sna} \n"
 	puts "可借車輛:#{sbi} \n"
